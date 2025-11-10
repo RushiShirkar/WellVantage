@@ -1,13 +1,37 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import logoutIcon from '../assets/logout.png';
 import dashboardIcon from '../assets/dashboard.png';
 import leadsIcon from '../assets/leads.png';
+import userIcon from '../assets/userIcon.svg';
+import avatar from '../assets/avatar.png';
 import Button from './Button';
 
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
+  const [userName, setUserName] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const userData = localStorage.getItem('userData');
+    if (userData) {
+      try {
+        const parsedData = JSON.parse(userData);
+        const firstName = parsedData.firstName || "";
+        const lastName = parsedData.lastName || "";
+        const fullName = `${firstName} ${lastName}`.trim();
+        setUserName(fullName);
+      } catch (error) {
+        console.error('Error parsing userData:', error);
+      }
+    }
+  }, []);
+
+  const logout = () => {
+    localStorage.clear();
+    navigate("/");
+  }
 
   return (
     <>
@@ -83,18 +107,29 @@ export default function Sidebar() {
           </nav>
         </div>
 
-        {/* Bottom: Logout (centered) */}
-        <div className="mt-auto flex justify-center">
-          <NavLink
-            to="/"
-            onClick={() => setOpen(false)}
-            className="flex items-center gap-2 py-2 text-gray-800 font-poppins transition"
-          >
-            <img src={logoutIcon} className="w-full h-full" alt="Logout icon" />
-            Logout
-          </NavLink>
+        {/* Bottom: User Name & Logout */}
+        <div className="mt-auto space-y-4">
+          {userName && (
+            <div className="bg-green-100 border border-green-300 rounded-lg px-4 py-3 flex items-center gap-3 w-full">
+              <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center flex-shrink-0">
+                <img src={avatar} alt="User avatar" className="w-8 h-8" />
+              </div>
+              <p className="text-gray-800 font-poppins font-medium text-lg flex-1">
+                {userName}
+              </p>
+            </div>
+          )}
+          <div className="flex justify-center">
+            <Button
+              variant="transparent"
+              onClick={logout}
+              className="flex items-center gap-2 py-2 text-gray-800 font-poppins transition"
+            >
+              <img src={logoutIcon} className="w-full h-full" alt="Logout icon" />
+              Logout
+            </Button>
+          </div>
         </div>
-
       </aside>
     </>
   );

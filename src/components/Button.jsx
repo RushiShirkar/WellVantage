@@ -14,6 +14,7 @@ export default function Button({
     primary: "bg-green-600 text-white hover:bg-green-700 focus:ring-green-500",
     secondary:
       "bg-white border border-gray-300 text-gray-800 hover:bg-gray-100 focus:ring-gray-400",
+    transparent: "bg-transparent border-none"
   };
 
   const sizes = {

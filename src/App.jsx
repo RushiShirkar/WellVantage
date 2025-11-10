@@ -5,6 +5,7 @@ import Leads from './pages/Leads';
 import Dashboard from './pages/Dashboard';
 import Layout from './pages/Layout';
 import NewLead from './pages/NewLead';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -13,11 +14,13 @@ function App() {
         <Route path="/" element={<Index />} />
         <Route path="/signup" element={<Signup />} />
 
-        {/* Routes With Sidebar Layout */}
-        <Route element={<Layout />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/lead-management" element={<Leads />} />
-          <Route path="/lead-management/new" element={<NewLead />} />
+        {/* Protected Routes With Sidebar Layout */}
+        <Route element={<ProtectedRoute />}>
+          <Route element={<Layout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/lead-management" element={<Leads />} />
+            <Route path="/lead-management/new" element={<NewLead />} />
+          </Route>
         </Route>
 
       </Routes>
