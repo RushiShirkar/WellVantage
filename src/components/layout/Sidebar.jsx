@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import logo from "../assets/logo.png";
-import logoutIcon from '../assets/logout.png';
-import dashboardIcon from '../assets/dashboard.png';
-import leadsIcon from '../assets/leads.png';
-import userIcon from '../assets/userIcon.svg';
-import avatar from '../assets/avatar.png';
-import Button from './Button';
+import logo from "../../assets/logo.png";
+import logoutIcon from "../../assets/logout.png";
+import dashboardIcon from "../../assets/dashboard.png";
+import leadsIcon from "../../assets/leads.png";
+import userIcon from "../../assets/userIcon.svg";
+import avatar from "../../assets/avatar.png";
+import Button from '../ui/Button';
 
 export default function Sidebar() {
   const [open, setOpen] = useState(false);

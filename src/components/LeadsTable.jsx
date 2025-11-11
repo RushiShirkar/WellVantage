@@ -10,6 +10,14 @@ const INTEREST_STYLES = {
   Cold: "bg-sky-100 text-sky-700 ring-sky-200",
 };
 
+const STATUS_STYLES = {
+  "New Inquiry": { bg: "#BFDBFE", text: "#1E40AF" },
+  "Needs Follow-Up": { bg: "#FDE68A", text: "#92400E" },
+  "Engaged": { bg: "#BBF7D0", text: "#065F46" },
+  "Converted": { bg: "#DDD6FE", text: "#5B21B6" },
+  "Archived": { bg: "#CBD5E1", text: "#1E293B" },
+};
+
 function InterestBadge({ level }) {
   const base =
     "inline-flex items-center p-1 text-xs font-semibold";
@@ -19,10 +27,16 @@ function InterestBadge({ level }) {
   return <span className={`${base} ${cls}`}><span>{icon}</span>{level}</span>;
 }
 
-function FollowUpBadge({ text = "Need Follow Up" }) {
+function FollowUpBadge({ status }) {
+  const statusText = status || "Needs Follow-Up";
+  const style = STATUS_STYLES[statusText] || STATUS_STYLES["Needs Follow-Up"];
+  
   return (
-    <span className="inline-flex p-1 text-xs font-semibold bg-[#FFECCD] text-[#F59E0B]">
-      {text}
+    <span 
+      className="inline-flex p-1 text-xs font-semibold rounded"
+      style={{ backgroundColor: style.bg, color: style.text }}
+    >
+      {statusText}
     </span>
   );
 }
@@ -82,7 +96,7 @@ function LeadsTable({ leads = [] }) {
                   <td className="py-4 px-3 text-gray-700">{lead.assignee || '-'}</td>
                   <td className="py-4 px-3 text-gray-700">{lead.inquiryDate || '-'}</td>
                   <td className="py-4 px-3">
-                    <FollowUpBadge />
+                    <FollowUpBadge status={lead?.followUpStatus} />
                   </td>
                   <td className="py-4 px-3">
                     <ActionIcons />
@@ -116,7 +130,7 @@ function LeadsTable({ leads = [] }) {
               </div>
             </div>
             <div className="mt-3 flex items-center justify-between">
-              <FollowUpBadge />
+              <FollowUpBadge status={lead?.followUpStatus} />
               <ActionIcons />
             </div>
           </div>

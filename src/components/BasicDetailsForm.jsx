@@ -1,11 +1,11 @@
 import { useState } from "react";
-import Input from "./Input";
-import Select from "./Select";
-import MobileInput from "./MobileInput";
-import Button from "./Button";
+import Input from "./ui/Input";
+import Select from "./ui/Select";
+import MobileInput from "./ui/MobileInput";
+import Button from "./ui/Button";
 import MeasurementField from "./MeasurementField";
 
-const GENDER_OPTIONS = ["Male", "Female", "Other", "Prefer not to say"];
+const GENDER_OPTIONS = ["Male", "Female", "Non-Binary", "Other"];
 const HEIGHT_UNITS = ["cm", "ft"];
 const WEIGHT_UNITS = ["kg", "lb"];
 

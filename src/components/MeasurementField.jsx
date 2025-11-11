@@ -1,5 +1,5 @@
-import Input from "./Input";
-import Select from "./Select";
+import Input from "./ui/Input";
+import Select from "./ui/Select";
 
 function MeasurementField({
   label,

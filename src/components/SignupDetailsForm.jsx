@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Input from "./Input";
-import MobileInput from "./MobileInput";
-import OtpInput from "./OtpInput";
-import CheckboxWithLabel from "./CheckboxWithLabel";
-import Button from "./Button";
+import Input from "./ui/Input";
+import MobileInput from "./ui/MobileInput";
+import OtpInput from "./ui/OtpInput";
+import CheckboxWithLabel from "./ui/CheckboxWithLabel";
+import Button from "./ui/Button";
 import { useNavigate } from 'react-router-dom';
 
 function DetailsForm() {

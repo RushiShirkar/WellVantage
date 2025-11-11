@@ -1,4 +1,4 @@
-import Tabs from "../components/Tabs";
+import Tabs from "../components/ui/Tabs";
 import { useState } from "react";
 import BasicDetailsForm from "../components/BasicDetailsForm";
 import PreferencesForm from "../components/PreferencesForm";
@@ -50,6 +50,7 @@ function NewLead() {
           activeTab={activeTab}
           tabs={["Basic", "Preferences", "Status"]}
           onChange={setActiveTab}
+          allowDirectNavigation={false}
         />
 
         {activeTab === 0 && (

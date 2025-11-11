@@ -1,16 +1,23 @@
 import { useState, useEffect } from "react";
-import Input from "./Input";
-import Select from "./Select";
-import Button from "./Button";
+import Input from "./ui/Input";
+import Select from "./ui/Select";
+import Button from "./ui/Button";
+import CustomNotes from "./CustomNotes";
 import { useNavigate } from "react-router-dom";
 
 const OPTIONS = {
   assignees: ["Ram Mohan", "Anita Sharma", "Vikram Singh"],
   interestLevels: ["Cold", "Warm", "Hot"],
-  followUpStatuses: ["Needs Follow Up", "In Progress", "Completed"],
+  followUpStatuses: [
+    "New Inquiry",
+    "Needs Follow-Up",
+    "Engaged",
+    "Converted",
+    "Archived"
+  ],
   packages: ["Package A", "Package B", "Package C"],
   ptPackages: ["None", "PT Basic", "PT Plus"],
-  sources: ["Social Media", "Referral", "Walk-in", "Event"],
+  sources: ["Social Media", "Word of Mouth", "Walk-in", "WellVantage B2C App"],
 };
 
 function StatusForm({ leadData, updateLeadData, saveLead }) {
@@ -23,7 +30,30 @@ function StatusForm({ leadData, updateLeadData, saveLead }) {
     preferredPackage: leadData?.preferredPackage || "",
     preferredPtPackage: leadData?.preferredPtPackage || "",
     source: leadData?.source || "",
+    notes: leadData?.notes || [],
   });
+
+  // Initialize notes - if no notes exist and it's a new lead, add a "Lead created" system note
+  const getInitialNotes = () => {
+    if (leadData?.notes && leadData.notes.length > 0) {
+      return leadData.notes;
+    }
+    // If it's a new lead (no ID or no notes), add system note
+    if (!leadData?.id || !leadData?.notes) {
+      const today = new Date().toISOString().split("T")[0];
+      return [
+        {
+          id: Date.now(),
+          date: today,
+          content: "Lead created.",
+          isSystemNote: true,
+        },
+      ];
+    }
+    return [];
+  };
+
+  const [notes, setNotes] = useState(getInitialNotes());
 
   useEffect(() => {
     if (leadData) {
@@ -36,6 +66,10 @@ function StatusForm({ leadData, updateLeadData, saveLead }) {
         preferredPtPackage: leadData.preferredPtPackage || "",
         source: leadData.source || "",
       });
+      // Update notes if they exist in leadData
+      if (leadData.notes) {
+        setNotes(leadData.notes);
+      }
     }
   }, [leadData]);
 
@@ -43,11 +77,15 @@ function StatusForm({ leadData, updateLeadData, saveLead }) {
     setStatus((prev) => ({ ...prev, [field]: event.target.value }));
   };
 
+  const handleNotesChange = (updatedNotes) => {
+    setNotes(updatedNotes);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     
     // Update lead data in parent component and get updated lead
-    const updatedLead = updateLeadData(status);
+    const updatedLead = updateLeadData({ ...status, notes });
     
     // Save to localStorage with the updated lead
     saveLead(updatedLead);
@@ -115,6 +153,15 @@ function StatusForm({ leadData, updateLeadData, saveLead }) {
           options={OPTIONS.sources}
           value={status.source}
           onChange={handleChange("source")}
+        />
+      </div>
+
+      {/* Custom Notes Section */}
+      <div className="mt-8">
+        <CustomNotes
+          notes={notes}
+          onNotesChange={handleNotesChange}
+          readOnly={false}
         />
       </div>
 

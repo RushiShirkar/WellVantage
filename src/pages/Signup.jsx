@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
-import Button from '../components/Button';
+import Button from '../components/ui/Button';
 import logo from '../assets/logo.png';
 import backArrow from '../assets/backArrow.png';
 import SignupDetailsForm from '../components/SignupDetailsForm';

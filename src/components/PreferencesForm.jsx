@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
-import Select from "./Select";
-import Button from "./Button";
+import Select from "./ui/Select";
+import Button from "./ui/Button";
 
 const OPTIONS = {
-  activityLevel: ["not active", "lightly active", "active", "very active"],
-  wellnessGoals: ["lose weight", "maintain weight", "gain muscle", "improve stamina"],
-  fitnessFocus: ["Gym workout", "Yoga", "Home workout", "Outdoor activities"],
-  gymTime: ["Morning", "Afternoon", "Evening", "Night"],
-  intensity: ["Light", "Moderate", "Intense"],
-  medicalConcerns: ["None", "Diabetes", "Hypertension", "Back pain"],
-  gymExperience: ["yes", "no"],
+  activityLevel: ["Sedentary", "Lightly active", "Moderately active", "Very active"],
+  wellnessGoals: ["Lose weight", "Gain weight", "Build muscle", "Modify My Diet", "Manage Stress", "Improve Step Count", "General wellness"],
+  fitnessFocus: ["Gym workouts", "Yoga", "Meditation", "Nutrition", "Recovery"],
+  gymTime: ["Morning", "Afternoon", "Evening", "Late evening"],
+  intensity: ["light", "moderate", "high"],
+  medicalConcerns: ["None", "Diabetes", "Hypertension", "Asthma", "Others"],
+  gymExperience: ["Yes", "No"],
 };
 
 function PreferencesForm({ updateTab, leadData, updateLeadData, saveLead }) {

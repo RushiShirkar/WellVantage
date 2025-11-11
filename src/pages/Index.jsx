@@ -1,7 +1,7 @@
-import ImageSlider from '../components/ImageSlider';
+import ImageSlider from '../components/ui/ImageSlider';
 import { slides } from '../content';
 import logo from "../assets/logo.png";
-import Button from '../components/Button';
+import Button from '../components/ui/Button';
 import { NavLink } from 'react-router-dom';
 
 function Index() {

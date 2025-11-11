@@ -1,6 +1,8 @@
-export default function Tabs({ tabs = [], activeTab = 0, onChange }) {
+export default function Tabs({ tabs = [], activeTab = 0, onChange, allowDirectNavigation = true }) {
   const handleClick = (index) => {
-    onChange && onChange(index);
+    if (allowDirectNavigation && onChange) {
+      onChange(index);
+    }
   };
 
   return (
@@ -10,8 +12,11 @@ export default function Tabs({ tabs = [], activeTab = 0, onChange }) {
           <button
             key={tab}
             onClick={() => handleClick(index)}
-            className={`relative pb-2 font-poppins font-semibold transition cursor-pointer
-              ${activeTab === index ? "text-green-600" : "text-gray-700"}`}
+            disabled={!allowDirectNavigation}
+            className={`relative pb-2 font-poppins font-semibold transition
+              ${allowDirectNavigation ? "cursor-pointer" : "cursor-default"}
+              ${activeTab === index ? "text-green-600" : "text-gray-700"}
+              ${!allowDirectNavigation ? "opacity-60" : ""}`}
           >
             {tab}
 
